@@ -32,7 +32,7 @@ func TestClean(t *testing.T) {
 		},
 	}
 	time.Sleep(time.Second)
-	go Clean(m, time.Millisecond*50)
+	go Clean(m, time.Millisecond*50, 0)
 	time.Sleep(time.Second)
 	if len(m) > 0 {
 		t.Errorf("Map should be completely clean, instead %v elements remain.", len(m))

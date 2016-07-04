@@ -59,7 +59,7 @@ m := map[string]*session{
         },
     },
 }
-go temp.Clean(m, time.Millisecond*50) //Clean blocks forever
+go temp.Clean(m, time.Millisecond*50, 0) //Clean blocks forever
 time.Sleep(time.Second * 2)
 //Map should be empty here
 ```

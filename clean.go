@@ -9,7 +9,9 @@ import (
 //Clean blocks forever and removes expires keys from a map with values that adhere to Temporary.
 //Clean panics if m is not a map or slice.
 //Clean makes heavy use of reflection.
-func Clean(m interface{}, interval time.Duration) {
+//scanInterval is slept between whole scans of a map, if zero it will block the thread.
+//checkInterval is slept between checks of individual elements.
+func Clean(m interface{}, scanInterval time.Duration, checkInterval time.Duration) {
 	val := reflect.ValueOf(m)
 
 	if !val.Type().Elem().Implements(reflect.TypeOf((*Temporary)(nil)).Elem()) {
@@ -26,9 +28,9 @@ func Clean(m interface{}, interval time.Duration) {
 				if Expired(elem) {
 					val.SetMapIndex(key, reflect.Value{})
 				}
-				time.Sleep(interval)
+				time.Sleep(checkInterval)
 			}
-			time.Sleep(time.Second)
+			time.Sleep(scanInterval)
 		}
 	default:
 		panic(fmt.Sprintf("Clean expects a map but got: %v", val))
