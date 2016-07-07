@@ -3,6 +3,7 @@ package temp
 import (
 	"fmt"
 	"reflect"
+	"sync"
 	"time"
 )
 
@@ -11,7 +12,7 @@ import (
 //Clean makes heavy use of reflection.
 //scanInterval is slept between whole scans of a map, if zero it will block the thread.
 //checkInterval is slept between checks of individual elements.
-func Clean(m interface{}, scanInterval time.Duration, checkInterval time.Duration) {
+func Clean(m interface{}, mutex *sync.RWMutex, scanInterval time.Duration, checkInterval time.Duration) {
 	val := reflect.ValueOf(m)
 
 	if !val.Type().Elem().Implements(reflect.TypeOf((*Temporary)(nil)).Elem()) {
@@ -23,6 +24,7 @@ func Clean(m interface{}, scanInterval time.Duration, checkInterval time.Duratio
 	switch val.Kind().String() {
 	case "map":
 		for {
+			mutex.Lock()
 			for _, key := range val.MapKeys() {
 				elem = val.MapIndex(key).Interface().(Temporary)
 				if Expired(elem) {
@@ -30,6 +32,7 @@ func Clean(m interface{}, scanInterval time.Duration, checkInterval time.Duratio
 				}
 				time.Sleep(checkInterval)
 			}
+			mutex.Unlock()
 			time.Sleep(scanInterval)
 		}
 	default:
