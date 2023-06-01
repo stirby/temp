@@ -9,8 +9,8 @@ import (
 //Clean blocks forever and removes expires keys from a map with values that adhere to Temporary.
 //Clean panics if m is not a map or slice.
 //Clean makes heavy use of reflection.
-func Clean(collection interface{}, interval time.Duration) {
-	val := reflect.ValueOf(collection)
+func Clean(m interface{}, interval time.Duration) {
+	val := reflect.ValueOf(m)
 
 	if !val.Type().Elem().Implements(reflect.TypeOf((*Temporary)(nil)).Elem()) {
 		panic("Map does not have elements that implement Temporary")
