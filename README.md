@@ -37,24 +37,24 @@ func main() {
 m := map[string]*session{
     "123": &session{
         ID: "123",
-        T: T{
+        temp.T: temp.T{
             expires: time.Now().Add(time.Second),
         },
     },
     "124": &session{
         ID: "124",
-        T: T{
+        temp.T: temp.T{
             expires: time.Now().Add(time.Second),
         },
     },
     "125": &session{
         ID: "125",
-        T: T{
+        temp.T: temp.T{
             expires: time.Now().Add(time.Second),
         },
     },
 }
-go Clean(m, time.Millisecond*50) //Clean blocks forever
+go temp.Clean(m, time.Millisecond*50) //Clean blocks forever
 time.Sleep(time.Second * 2)
 //Map should be empty here
 ```
