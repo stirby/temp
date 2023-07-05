@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ammario/temp"
+	"github.com/s-kirby/temp"
 )
 
 type session struct {

@@ -11,6 +11,10 @@ Temporary structs and maps with expiring elements in Golang
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Install
+
+```go get gopkg.in/s-kirby/temp.v1```
+
 # Basic Usage
 ## Temporary struct
 
