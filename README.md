@@ -5,6 +5,7 @@ Temporary structs and maps with expiring elements in Golang
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents** 
 
+  - [Install](#install)
 - [Basic Usage](#basic-usage)
   - [Temporary struct](#temporary-struct)
   - [Expiring map](#expiring-map)
