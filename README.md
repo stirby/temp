@@ -14,7 +14,7 @@ Temporary structs and maps with expiring elements in Golang
 
 ## Install
 
-```go get gopkg.in/s-kirby/temp.v1```
+```go get gopkg.in/s-kirby/temp.v2```
 
 # Basic Usage
 ## Temporary struct
@@ -59,7 +59,8 @@ m := map[string]*session{
         },
     },
 }
-go temp.Clean(m, time.Millisecond*50, 0) //Clean blocks forever
+mutex := &sync.RWMutex{}
+go temp.Clean(m, mutex, time.Millisecond*50, 0) //Clean blocks forever
 time.Sleep(time.Second * 2)
 //Map should be empty here
 ```
