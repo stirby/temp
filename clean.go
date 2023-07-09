@@ -8,7 +8,7 @@ import (
 )
 
 //Clean blocks forever and removes expires keys from a map with values that adhere to Temporary.
-//Clean panics if m is not a map or slice.
+//Clean panics if m is not a map.
 //Clean makes heavy use of reflection.
 //scanInterval is slept between whole scans of a map, if zero it will block the thread.
 //checkInterval is slept between checks of individual elements.
