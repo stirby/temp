@@ -24,15 +24,17 @@ func Clean(m interface{}, mutex *sync.RWMutex, scanInterval time.Duration, check
 	switch val.Kind().String() {
 	case "map":
 		for {
-			mutex.Lock()
+
 			for _, key := range val.MapKeys() {
+				mutex.Lock()
 				elem = val.MapIndex(key).Interface().(Temporary)
 				if Expired(elem) {
 					val.SetMapIndex(key, reflect.Value{})
 				}
+				mutex.Unlock()
 				time.Sleep(checkInterval)
 			}
-			mutex.Unlock()
+
 			time.Sleep(scanInterval)
 		}
 	default:
